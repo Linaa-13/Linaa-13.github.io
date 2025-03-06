@@ -22,55 +22,25 @@
             background-color: rgba(255, 255, 255, 0.7);
             padding: 10px;
             border-radius: 5px;
-            font-weight: bold;
-            font-family: 'Courier New', Courier, monospace;
             margin: 20px auto;
             max-width: 80%;
         }
 
         h2 {
-            margin-top: 30px;
+            text-align: center;
             padding: 15px;
             border-radius: 15px;
-            text-align: center;
-            font-weight: bold;
             background-color: rgba(255, 255, 255, 1);
-            font-family: 'Courier New', Courier, monospace;
             margin: 20px auto;
             max-width: 80%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Colores personalizados para los continentes */
-        #africa {
-            color: #3ccee2; /* Azul */
-            border: 3px solid #3ccee2; /* Azul borde */
-        }
-
-        #america {
-            color: #ee1a1a; /* Rojo */
-            border: 3px solid #ee1a1a; /* Rojo borde */
-        }
-
-        #europa {
-            color: #2eae3f; /* Verde oscuro */
-            border: 3px solid #2eae3f; /* Verde borde */
-        }
-
-        #asia {
-            color: #712eae; /* Morado */
-            border: 3px solid #712eae; /* Morado borde */
-        }
-
-        #oceania {
-            color: #eddb33; /* Dorado */
-            border: 3px solid #eddb33; /* Dorado borde */
-        }
-
         .country-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 10px;
+            padding: 10px;
         }
 
         label {
@@ -80,6 +50,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            cursor: pointer;
         }
 
         label:hover {
@@ -96,50 +67,61 @@
             border-radius: 15px;
         }
 
-        /* Estilos para el contador */
         #count {
             text-align: center;
             font-size: 1.5em;
             margin-top: 20px;
-            color: #fff;
-            font-weight: bold;
             background-color: rgba(0, 0, 0, 0.6);
             padding: 10px;
             border-radius: 10px;
         }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            background-color: #ee1a1a;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
     </style>
+</head>
+<body>
+    <h1>¿Cuántos lugares has descubierto?</h1>
+    <div id="country-list"></div>
+    <div id="count">Países visitados: 0</div>
+    <button id="reset">Restablecer selección</button> <!-- Botón para limpiar la selección -->
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const continents = {
-                "África": ["Argelia", "Angola", "Benín", "Botsuana", "Burkina Faso", "Burundi", "Cabo Verde", "Camerún", "Chad", "Comoras", "Costa de Marfil", "Egipto", "Eritrea", "Esuatini", "Etiopía", "Gabón", "Gambia", "Ghana", "Guinea", "Guinea-Bisáu", "Guinea Ecuatorial", "Kenia", "Lesoto", "Liberia", "Libia", "Madagascar", "Malaui", "Mali", "Marruecos", "Mauricio", "Mauritania", "Mozambique", "Namibia", "Níger", "Nigeria", "República Centroafricana", "República del Congo", "República Democrática del Congo", "Ruanda", "Santo Tomé y Príncipe", "Senegal", "Seychelles", "Sierra Leona", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Tanzania", "Togo", "Túnez", "Uganda", "Zambia", "Zimbabue"],
-                "América": ["Antigua y Barbuda", "Argentina", "Bahamas", "Barbados", "Belice", "Bolivia", "Brasil", "Canadá", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominica", "Ecuador", "El Salvador", "Estados Unidos", "Granada", "Guatemala", "Guyana", "Haití", "Honduras", "Jamaica", "México", "Nicaragua", "Panamá", "Paraguay", "Perú", "República Dominicana", "San Cristóbal y Nieves", "San Vicente y las Granadinas", "Santa Lucía", "Surinam", "Trinidad y Tobago", "Uruguay", "Venezuela"],
-                "Asia": ["Afganistán", "Arabia Saudita", "Armenia", "Azerbaiyán", "Bangladés", "Baréin", "Birmania (Myanmar)", "Brunéi", "Bután", "Camboya", "Catar", "China", "Corea del Norte", "Corea del Sur", "Emiratos Árabes Unidos", "Filipinas", "Georgia", "India", "Indonesia", "Irak", "Irán", "Israel", "Japón", "Jordania", "Kazajistán", "Kuwait", "Kirguistán", "Laos", "Líbano", "Malasia", "Maldivas", "Mongolia", "Nepal", "Omán", "Pakistán", "Singapur", "Siria", "Sri Lanka", "Tailandia", "Tayikistán", "Timor Oriental", "Turkmenistán", "Turquía", "Uzbekistán", "Vietnam", "Yemen"],
-                "Europa": ["Albania", "Alemania", "Andorra", "Austria", "Bélgica", "Bielorrusia", "Bosnia y Herzegovina", "Bulgaria", 
-                    "República Checa", "Chipre", "Croacia", "Dinamarca", "Eslovaquia", "Eslovenia", "España", "Estonia", 
-                    "Finlandia", "Francia", "Reino Unido", "Grecia", "Países Bajos", "Hungría", "Italia", "Irlanda", 
-                    "Islandia", "Letonia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Moldavia", 
-                    "Malta", "Mónaco", "Noruega", "Polonia", "Portugal", "Rumania", "Rusia", "San Marino", 
-                    "Serbia", "Suecia", "Suiza", "Ucrania"
-                ],
-                "Oceanía": ["Australia", "Fiyi", "Islas Marshall", "Islas Salomón", "Kiribati", "Micronesia", "Nauru", "Nueva Zelanda", "Palaos", "Papúa Nueva Guinea", "Samoa", "Tonga", "Tuvalu", "Vanuatu"]
+                "África": ["Argelia", "Egipto", "Sudáfrica", "Nigeria"],
+                "América": ["Argentina", "Brasil", "México", "Estados Unidos"],
+                "Asia": ["China", "India", "Japón", "Corea del Sur"],
+                "Europa": ["España", "Francia", "Alemania", "Italia"],
+                "Oceanía": ["Australia", "Nueva Zelanda", "Fiyi", "Papúa Nueva Guinea"]
             };
 
             const container = document.getElementById("country-list");
             const countDisplay = document.getElementById("count");
-            let storedCountries = JSON.parse(localStorage.getItem("visitedCountries")) || [];
+            const resetButton = document.getElementById("reset");
 
-            // Función para limpiar y normalizar los nombres de los continentes para usarlos como IDs
+            let storedCountries = new Set(JSON.parse(localStorage.getItem("visitedCountries")) || []);
+
             function normalizeId(id) {
-                return id
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .replace(/[^a-z0-9]/g, "");
+                return id.toLowerCase().replace(/\s/g, "-");
             }
 
-            // Función para actualizar el contador
             function updateCountryCount() {
-                const visitedCount = storedCountries.length;
+                const visitedCount = storedCountries.size;
                 const totalCount = Object.values(continents).reduce((acc, countries) => acc + countries.length, 0);
                 countDisplay.textContent = `Países visitados: ${visitedCount} de ${totalCount}`;
             }
@@ -161,19 +143,16 @@
                     const checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
                     checkbox.value = country;
-                    checkbox.checked = storedCountries.includes(country);
+                    checkbox.checked = storedCountries.has(country);
 
                     checkbox.addEventListener("change", () => {
-                        // Actualizar lista de países visitados
                         if (checkbox.checked) {
-                            if (!storedCountries.includes(country)) {
-                                storedCountries.push(country);
-                            }
+                            storedCountries.add(country);
                         } else {
-                            storedCountries = storedCountries.filter(c => c !== country);
+                            storedCountries.delete(country);
                         }
-                        localStorage.setItem("visitedCountries", JSON.stringify(storedCountries));
-                        updateCountryCount();  // Actualizar el contador
+                        localStorage.setItem("visitedCountries", JSON.stringify([...storedCountries]));
+                        updateCountryCount();
                     });
 
                     label.appendChild(checkbox);
@@ -185,15 +164,15 @@
                 container.appendChild(continentContainer);
             });
 
-            // Inicializar el contador al cargar la página
+            resetButton.addEventListener("click", () => {
+                storedCountries.clear();
+                localStorage.removeItem("visitedCountries");
+                document.querySelectorAll("input[type='checkbox']").forEach(checkbox => checkbox.checked = false);
+                updateCountryCount();
+            });
+
             updateCountryCount();
         });
     </script>
-</head>
-<body>
-    <h1>¿Cuántos lugares has descubierto?</h1>
-    <div id="country-list"></div>
-    <div id="count">Países visitados: 0</div>  <!-- Sección para mostrar el recuento -->
 </body>
 </html>
-
