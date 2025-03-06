@@ -117,13 +117,18 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const continents = {
-                "África": ["Argelia", "Angola", "Egipto", "Kenia", "Sudáfrica"],
-                "América": ["Argentina", "Brasil", "Canadá", "Estados Unidos", "México"],
-                "Asia": ["China", "India", "Japón", "Corea del Sur", "Tailandia"],
-                "Europa": ["Alemania", "España", "Francia", "Italia", "Reino Unido"],
-                "Oceanía": ["Australia", "Fiyi", "Nueva Zelanda", "Papúa Nueva Guinea", "Samoa"]
+ "África": ["Argelia", "Angola", "Benín", "Botsuana", "Burkina Faso", "Burundi", "Cabo Verde", "Camerún", "Chad", "Comoras", "Costa de Marfil", "Egipto", "Eritrea", "Esuatini", "Etiopía", "Gabón", "Gambia", "Ghana", "Guinea", "Guinea-Bisáu", "Guinea Ecuatorial", "Kenia", "Lesoto", "Liberia", "Libia", "Madagascar", "Malaui", "Mali", "Marruecos", "Mauricio", "Mauritania", "Mozambique", "Namibia", "Níger", "Nigeria", "República Centroafricana", "República del Congo", "República Democrática del Congo", "Ruanda", "Santo Tomé y Príncipe", "Senegal", "Seychelles", "Sierra Leona", "Somalia", "Sudáfrica", "Sudán", "Sudán del Sur", "Tanzania", "Togo", "Túnez", "Uganda", "Zambia", "Zimbabue"],
+                "América": ["Antigua y Barbuda", "Argentina", "Bahamas", "Barbados", "Belice", "Bolivia", "Brasil", "Canadá", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominica", "Ecuador", "El Salvador", "Estados Unidos", "Granada", "Guatemala", "Guyana", "Haití", "Honduras", "Jamaica", "México", "Nicaragua", "Panamá", "Paraguay", "Perú", "República Dominicana", "San Cristóbal y Nieves", "San Vicente y las Granadinas", "Santa Lucía", "Surinam", "Trinidad y Tobago", "Uruguay", "Venezuela"],
+                "Asia": ["Afganistán", "Arabia Saudita", "Armenia", "Azerbaiyán", "Bangladés", "Baréin", "Birmania (Myanmar)", "Brunéi", "Bután", "Camboya", "Catar", "China", "Corea del Norte", "Corea del Sur", "Emiratos Árabes Unidos", "Filipinas", "Georgia", "India", "Indonesia", "Irak", "Irán", "Israel", "Japón", "Jordania", "Kazajistán", "Kuwait", "Kirguistán", "Laos", "Líbano", "Malasia", "Maldivas", "Mongolia", "Nepal", "Omán", "Pakistán", "Singapur", "Siria", "Sri Lanka", "Tailandia", "Tayikistán", "Timor Oriental", "Turkmenistán", "Turquía", "Uzbekistán", "Vietnam", "Yemen"],
+                "Europa": ["Albania", "Alemania", "Andorra", "Austria", "Bélgica", "Bielorrusia", "Bosnia y Herzegovina", "Bulgaria", 
+                    "República Checa", "Chipre", "Croacia", "Dinamarca", "Eslovaquia", "Eslovenia", "España", "Estonia", 
+                    "Finlandia", "Francia", "Reino Unido", "Grecia", "Países Bajos", "Hungría", "Italia", "Irlanda", 
+                    "Islandia", "Letonia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Moldavia", 
+                    "Malta", "Mónaco", "Noruega", "Polonia", "Portugal", "Rumania", "Rusia", "San Marino", 
+                    "Serbia", "Suecia", "Suiza", "Ucrania"
+                ],
+                "Oceanía": ["Australia", "Fiyi", "Islas Marshall", "Islas Salomón", "Kiribati", "Micronesia", "Nauru", "Nueva Zelanda", "Palaos", "Papúa Nueva Guinea", "Samoa", "Tonga", "Tuvalu", "Vanuatu"]
             };
-
             const container = document.getElementById("country-list");
             const countDisplay = document.getElementById("count");
             let storedCountries = JSON.parse(localStorage.getItem("visitedCountries")) || [];
